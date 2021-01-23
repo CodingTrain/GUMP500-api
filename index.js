@@ -1,8 +1,10 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const { MongoClient } = require('mongodb');
+const express = require("express");
+const cors = require("cors");
 
-console.log('hello GUMP500! 🤖');
+const dotenv = require("dotenv");
+const { MongoClient } = require("mongodb");
+
+console.log("hello GUMP500! 🤖");
 
 // Get environment variables from .env for Twitter/MongoDB creds
 dotenv.config();
@@ -19,7 +21,7 @@ async function connectDB() {
     // Make the appropriate DB calls
     databasesList = await mongoClient.db().admin().listDatabases();
     databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
-    runnersDB = mongoClient.db('GUMP500').collection('people');
+    runnersDB = mongoClient.db("GUMP500").collection("people");
     const all = await getRunners();
     console.log(`There are ${all.length} database entries`);
   } catch (e) {
@@ -40,15 +42,16 @@ async function getRunners() {
 
 // Create Express web application at port 3000
 const app = express();
-app.listen(3000, () => console.log('listening at 3000'));
-app.use(express.static('public'));
-app.use(express.json({ limit: '1mb' }));
+app.listen(3000, () => console.log("listening at 3000"));
+app.use(express.static("public"));
+app.use(express.json({ limit: "1mb" }));
+app.use(cors());
 
 // Return all runners as json on /api web request
-app.get('/api', async (request, response) => {
+app.get("/api", async (request, response) => {
   // const cursor = runnersDB.find();
   // const all = await cursor.toArray();
   const all = await getRunners();
-  console.log(all);
+  // console.log(all);
   response.json(all);
 });

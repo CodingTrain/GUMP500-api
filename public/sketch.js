@@ -1,3 +1,5 @@
+const publicURL = "http://gump500-api.glitch.me"; // Use empty string "" here if you want to fetch data from a local server
+
 function setup() {
   noCanvas();
   visualize();
@@ -5,7 +7,7 @@ function setup() {
 
 async function visualize() {
   // Get all runners as json
-  const response = await fetch("/api");
+  const response = await fetch(publicURL + "/api");
   const runners = await response.json();
   console.log(runners);
   // Sort runners from highest total to lowest

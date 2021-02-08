@@ -1,4 +1,4 @@
-const publicURL = "http://gump500-api.glitch.me";
+const publicURL = "https://gump500-api.glitch.me";
 // Use empty string "" here if you want to fetch data from a local server.
 
 let dataLoaded = false;
